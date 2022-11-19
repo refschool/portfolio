@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+	<style>
+		#rouge {
+			padding: 0 !important;
+		}
+		#rouge > div.bg-danger.text-white {
+
+			padding-top: 10px;
+			padding-left: 10px;
+
+		}
+		#rouge > div.bg-danger.text-white > h2 {
+			padding-bottom: 10px;
+		}
+
+		#blanc {
+			padding: 20px;
+		}
+	</style>
+
+	<div class="row">
+		<div class="col-8 w-25 p-3" id='rouge'>
+
+			<div class='bg-danger text-white'>
+				<h1>John Tchen</h1>
+				<h2>Développeur WEB Fullstack</h2>
+			</div>
+
+			<div id='blanc'>
+				<h3 class='text-danger'>EXPÉRIENCES</h3>
+				<div>
+					<div>
+						<span class="font-weight-bold">
+							Serveur</span><br/>Orient Express - 2000
+						<ul></ul>
+					</div>
+					<div>
+						<span class="font-weight-bold">
+							Dev</span><br/>ComeOn - 10/2020 - 12/2020
+						<ul></ul>
+					</div>
+					<div>
+						<span class="font-weight-bold">
+							Développeur d'applications mobiles</span><br/>L2K - 2000
+						<ul>
+							<li>Rédaction des livrables</li>
+							<li>Déploiement</li>
+						</ul>
+					</div>
+
+					<div>
+						<span class="font-weight-bold">
+							Développeur web</span><br/>la Fabrik - 2015 à 2016
+						<ul></ul>
+					</div>
+
+					<h3 class='text-danger'>COMPÉTENCES</h3>
+
+					<span class="font-weight-bold">
+						Langages WEB</span>
+					<ul>
+						<li>PHP</li>
+						<li>JS</li>
+					</ul>
+					<span class="font-weight-bold">
+						Framework</span>
+					<ul>
+						<li>Symfony</li>
+						<li>Bootstrap</li>
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div class="col-4 bg-danger text-white text-center">
+			Photo
+			<h3>CONTACT</h3>
+			<ul>
+				<li>johntchen.mos@gmail.com</li>
+				<li>+33 6 58 08 19 86</li>
+				<li>14 rue du Tibet, Robinson, Mont-Dore, France</li>
+			</ul>
+
+			<div>
+				<h3>Présentation</h3>
+				Vive la vie, les crevettes bleues
+			</div>
+		</div>
+
+
+	</div>
+
+{% endblock %}
