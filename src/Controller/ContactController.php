@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\Entity;
 use App\Entity\Contact;
+//use App\Repository\ContactRepository;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
