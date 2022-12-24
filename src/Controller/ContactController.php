@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\Entity;
 use App\Entity\Contact;
+//use App\Repository\ContactRepository;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,9 +19,9 @@ class ContactController extends AbstractController
 {
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="envoyerMessageContact")
      */
-    public function contact(Request $request, EntityManagerInterface $em, ValidatorInterface $vi)
+    public function envoyerMessageContact(Request $request, EntityManagerInterface $em, ValidatorInterface $vi)
     {
 
         //getForm + setData
