@@ -17,15 +17,21 @@
 			<li class="nav-item">
 				<a class="nav-link " href="{{ path('don') }}">Faites un dent</a>
 			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+			<li class="nav-item  ">
+				<a class="nav-link " href="{{ path('projets') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
 					Projets
 				</a>
+
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="../debuterSymfony" target="_blank">Postman</a>
+					<a class="dropdown-item" href="" target="_blank">Trocnc</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="" target="_blank">Module de Paiement Stripe</a>
 				</div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link " href="{{ path('envoyerMessageContact') }}">Contact</a>
 			</li>
-		</div>
+		</ul>
+	</div>
 </nav>

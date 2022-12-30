@@ -8,11 +8,25 @@
    }
 
 */
+  body {
+      /*background: url('https://cdn.discordapp.com/attachments/888191732875919420/1057724619127271504/Gradients-para-Diseno-Web-001.jpg');*/
 
-  .row div {
-      border: 1px solid black;
+
+      background: rgb(255, 255, 255);
+      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
+      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#008eff", GradientType=1);
+
   }
+
+
+
 
   div>span {
       display: block;
+  }
+
+  #competences>div {
+      margin-bottom: 1rem;
   }
