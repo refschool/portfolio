@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title> {% block title %}Welcome! {% endblock %}</title>
+		<title> {% block title %}Portfolio! {% endblock %}</title>
 
 		<!-- Feuilles de styles -->
 		<link rel="stylesheet" href="{{ asset('assets/css/styles.css')}}">
@@ -28,10 +28,8 @@
 		<div class="container bg-white">
 
 			{% include "_partials/_navbar.html.twig" %}
-			<div class="row justify-content-center">
-				<h1>Portfolio</h1>
-			</div>
-			{% block body %}{% endblock %}
+	
+			{% block body %}portfolio fait avec symfony5. gestion des librairies hors connexion{% endblock %}
 			{% include "_partials/_footer.html.twig" %}
 		</div>
 	</body>

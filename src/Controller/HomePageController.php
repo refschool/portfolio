@@ -35,6 +35,13 @@ class HomePageController extends AbstractController
     }
 
     /**
+     * @Route("/projets", name="projets")
+     */
+    function projets($data)
+    {
+        return $this->render('projets.html.twig');
+    }
+    /**
      * @Route("/don", name="don")
      */
     public function don()
@@ -111,12 +118,5 @@ class HomePageController extends AbstractController
         return $this->render('echec.html.twig', ['msg' => $data]);
     }
 
-    /**
-     * @Route("/projets", name="projets")
-     */
-    function projets($data)
-    {
-        return $this->render('projets.html.twig', ['msg' => $data]);
-    }
 
 }
