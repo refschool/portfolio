@@ -6,37 +6,42 @@
 	<div class="row border border-dark">
 		<div class="col-lg-8 col-md-12">
 
-			<div class="p-4 row border-bottom border-dark">
-				<div class='col-12'><h1>John Tchen</h1></div>
-				<div class='col-12'><h2>Développeur WEB Fullstack</h2></div>
-	
-			</div>
- 
-			<div class="pl-5 pt-5 row">
-				{% include "_experiences.html.twig" %}
+			<div class="pl-5 pt-5 row ">
+				{% include "_competences.html.twig" %}
  
  				<div class="w-100"></div>
- 
-				{% include "_competences.html.twig" %}
+ 				{% include "_experiences.html.twig" %}
+				
 				{% include "_projets.html.twig" %}
 				{% include "_formations.html.twig" %}
 				{% include "_langues.html.twig" %}
- 
 			</div>
 		</div>
 
-		<div class="col-lg-4 col-md-12 border-left border-dark pl-5">
-			<img style='width:0px;height:0px' src="{{ asset('assets/img/photo.jpg')}}">
-			<h3>CONTACT</h3>
-			<ul>
-				<li>johntchen.mos@gmail.com</li>
-				<li>+33 6 58 08 19 86</li>
-				<li>40 rue des Quêteurs, Toulouse, France</li>
-			</ul>
+		<div id='profil' class="col-lg-4 col-md-12 border-left border-dark text-white">
 
+			<div class="row border-dark"> 
+				<div class='col-12 font-weight-bold'>John Tchen</div>
+				<div class='col-12 '>Développeur WEB Fullstack</div>
+			</div>
+
+			<div id='photo-profil' class='d-flex justify-content-center'>
+				<img alt='photo-de-profil' src="{{ asset('assets/img/profil.jpg')}}">
+			</div>			
+			
+			<h3>Info personnel</h3>
+			<span>Email</span>
+				johntchen.mos@gmail.com
+			<span>Telephone</span>
+				+33 6 58 08 19 86
+			<span>Linkedin</span>
+				40 rue des Quêteurs, Toulouse, France
+			<span>Date de naissance</span>
+			13 février 1994
 			<div>
 				<h3>Présentation</h3>
 				Vive la vie, les crevettes bleues
+			</div>
 			</div>
 		</div>
 	</div>

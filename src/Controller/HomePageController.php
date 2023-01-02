@@ -37,10 +37,11 @@ class HomePageController extends AbstractController
     /**
      * @Route("/projets", name="projets")
      */
-    function projets($data)
+    public function projets()
     {
-        return $this->render('projets.html.twig');
+        return $this->render('_projets.html.twig');
     }
+
     /**
      * @Route("/don", name="don")
      */

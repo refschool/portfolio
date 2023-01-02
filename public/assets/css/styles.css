@@ -8,20 +8,6 @@
    }
 
 */
-  body {
-      /*background: url('https://cdn.discordapp.com/attachments/888191732875919420/1057724619127271504/Gradients-para-Diseno-Web-001.jpg');
-
-
-      background: rgb(255, 255, 255);
-      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
-      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
-      background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 142, 255, 1) 78%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#008eff", GradientType=1);*/
-
-  }
-
-
-
 
   div>span {
       display: block;
@@ -31,6 +17,32 @@
       margin-bottom: 1rem;
   }
 
-  h3 {
-      color: red;
+
+  .h3title {
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+      margin-right: 2rem;
+      padding: 5px 0;
+      color: #31618F;
+      font-weight: bold;
+
+  }
+
+  #profil {
+      background-color: #003973;
+  }
+
+  #photo-profil {
+      width: 125px;
+      height: 125px;
+      margin: 1rem 0;
+  }
+
+  #profil>h3 {
+      background-color: #002C5C;
+  }
+
+  #profil>span {
+      font-weight: bold;
+      padding-top: 1rem;
   }
