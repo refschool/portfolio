@@ -1,17 +1,16 @@
 {% extends "base.html.twig" %}
 
-
 {% block body %}
 
 	<div class="row border border-dark">
 		<div class="col-lg-8 col-md-12">
 
 			<div class="pl-5 pt-5 row ">
-				{% include "_competences.html.twig" %}
+				{% include "_experiences.html.twig" %}
  
  				<div class="w-100"></div>
- 				{% include "_experiences.html.twig" %}
-				
+ 				
+				{% include "_competences.html.twig" %}
 				{% include "_projets.html.twig" %}
 				{% include "_formations.html.twig" %}
 				{% include "_langues.html.twig" %}
@@ -19,14 +18,13 @@
 		</div>
 
 		<div id='profil' class="col-lg-4 col-md-12 border-left border-dark text-white">
-
 			<div class="row border-dark"> 
 				<div class='col-12 font-weight-bold'>John Tchen</div>
 				<div class='col-12 '>Développeur WEB Fullstack</div>
 			</div>
 
 			<div id='photo-profil' class='d-flex justify-content-center'>
-				<img alt='photo-de-profil' src="{{ asset('assets/img/profil.jpg')}}">
+				<img alt='photo-de-profil' src="{{ asset('assets/img/photo.jpg')}}">
 			</div>			
 			
 			<h3>Info personnel</h3>
