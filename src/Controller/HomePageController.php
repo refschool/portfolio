@@ -39,7 +39,7 @@ class HomePageController extends AbstractController
      */
     public function projets()
     {
-        return $this->render('_projets.html.twig');
+        return $this->render('projets.html.twig');
     }
 
     /**
