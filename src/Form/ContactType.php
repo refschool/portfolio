@@ -19,20 +19,20 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre nom'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre nom'],
                 'required' => false,
             ])
             ->add('prenom', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre prenom'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre prenom'],
                 'required' => false
             ])->add('telephone', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre telephone'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre telephone'],
                 'required' => false
             ])->add('email', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre email'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre email'],
                 'required' => false
             ])->add('message', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre message'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre message'],
                 'required' => false
             ]);
     }

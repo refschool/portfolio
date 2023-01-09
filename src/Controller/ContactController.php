@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\Entity;
 use App\Entity\Contact;
-//use App\Repository\ContactRepository;
+use App\Repository\ContactRepository;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +42,17 @@ class ContactController extends AbstractController
 
         return $this->render('contact/contact.html.twig', [
             'formView' => $formView
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/{id}/editMessageContact", name="messageContactEdit")
+     */
+    public function edit($id, ContactRepository $contactRepository){
+        $message = $contactRepository->find($id);
+        return $this->render('contact/edit.html.twig',[
+            'contact' => $message
         ]);
     }
 }
