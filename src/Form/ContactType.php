@@ -8,12 +8,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
 {
@@ -40,12 +35,12 @@ class ContactType extends AbstractType
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre message'],
                 'required' => false
             ]);
-            
-            // Evenement : affiche le bloc nom si l'id est null
-            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
-                $form = $event->getForm();
 
-                /** @var Contact */
+        // Evenement : affiche le bloc nom si l'id est null
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+
+            /** @var Contact */
             /*   
                 $contact = $event->getData();
          
@@ -55,9 +50,7 @@ class ContactType extends AbstractType
                         'required' => false,
                     ]);
                 } */
-                
-                
-            });
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
