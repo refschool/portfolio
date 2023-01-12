@@ -78,7 +78,7 @@ class Contact
     {
         return $this->nom;
     }
-
+    // "?" permet de passer valeur vide formulaire
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;

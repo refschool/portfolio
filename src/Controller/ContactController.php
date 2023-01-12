@@ -45,31 +45,16 @@ class ContactController extends AbstractController
     /**
      * @Route("/admin/{id}/editerMessageContact", name="messageContactEdit")
      */
-    public function editerMessageContact(
-        $id,
-        ContactRepository $contactRepository,
-        Request $request,
-        EntityManagerInterface $em,
-        ValidatorInterface $validator
-    ) {
-
-        $contact = new Contact();
-
-        $contact->setNom('Tchen');
-        $erreurs  = $validator->validate($contact);
-
-        //Compte le nombre d'erreurs
-        if ($erreurs->count() > 0) {
-            dd("Il y a des erreurs", $erreurs);
-        }
-        dd("Tout va bien");
+    public function editerMessageContact($id, ContactRepository $contactRepository, Request $request,
+    EntityManagerInterface $em, ValidatorInterface $validator){
+        
         $message = $contactRepository->find($id);
 
         $form = $this->createForm(ContactType::class, $message);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if($form->isSubmitted() && $form->isValid()){
             $em->flush();
 
             return $this->redirectToRoute('homepage');
@@ -77,7 +62,7 @@ class ContactController extends AbstractController
 
         $formView = $form->createView();
 
-        return $this->render('contact/edit.html.twig', [
+        return $this->render('contact/edit.html.twig',[
             'contact' => $message,
             'formView' => $formView
         ]);

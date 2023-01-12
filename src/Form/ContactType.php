@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactType extends AbstractType
 {
@@ -18,6 +19,9 @@ class ContactType extends AbstractType
             ->add('nom', TextType::class, [
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre nom'],
                 'required' => false,
+                'constraints' => new Assert\NotBlank([
+                    'message' => 'Validation du formulaire : Le nom ne peut pas être vide.'
+                ])
             ])
             ->add('prenom', TextType::class, [
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre prenom'],
