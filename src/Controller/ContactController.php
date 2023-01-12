@@ -54,33 +54,21 @@ class ContactController extends AbstractController
     /**
      * @Route("/admin/{id}/editerMessageContact", name="messageContactEdit")
      */
-    public function editerMessageContact($id, ContactRepository $contactRepository, Request $request,
-    EntityManagerInterface $em, ValidatorInterface $validator){
-        
-        $client = [
-            'nom' => '',
-            'prenom' => 'John',
-            'voiture' => [
-                'marque' => '',
-                'couleur' => 'Noire'
-            ]
-        ];
+    public function editerMessageContact(
+        $id,
+        ContactRepository $contactRepository,
+        Request $request,
+        EntityManagerInterface $em,
+        ValidatorInterface $validator
+    ) {
 
-        $collection = new Collection([
-            'nom' => new NotBlank(['message' => "Le nom ne doit pas être vide"]),
-            'prenom' => [
-                new NotBlank(['message' => "Le prenom ne doit pas être vide"]),
-                new Length(['min' => 3, 'minMessage' => "Le prenom ne doit pas faire moins de 3 caractères"])
-            ],
-            'voiture' => new Collection([
-                'marque' => new NotBlank(['message'=> 'La marque ne doit pas être vide']),
-                'couleur' => new NotBlank(['message'=> 'La couleur ne doit pas être vide']),
-            ])
-        ]);
-        
-        $erreurs  = $validator->validate($client, $collection);
+        $contact = new Contact();
+
+        //$contact->setNom('Tchen');
+        $erreurs  = $validator->validate($contact);
+
         //Compte le nombre d'erreurs
-        if ($erreurs->count() > 0 ){
+        if ($erreurs->count() > 0) {
             dd("Il y a des erreurs", $erreurs);
         }
         dd("Tout va bien");
@@ -90,7 +78,7 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if ($form->isSubmitted()) {
             $em->flush();
 
             return $this->redirectToRoute('homepage');
@@ -98,7 +86,7 @@ class ContactController extends AbstractController
 
         $formView = $form->createView();
 
-        return $this->render('contact/edit.html.twig',[
+        return $this->render('contact/edit.html.twig', [
             'contact' => $message,
             'formView' => $formView
         ]);
