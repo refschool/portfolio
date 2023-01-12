@@ -7,8 +7,10 @@ use Doctrine\ORM\Entity;
 use App\Repository\ContactRepository;
 use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -49,6 +51,25 @@ class Contact
      */
     private $message;
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraints(
+            'nom',
+            [
+                new NotBlank(['message' => 'Class Contact Le nom est obligatoire']),
+                new Length([
+                    'min' => 3,
+                    'max' => 4,
+                    'minMessage' => 'Le nom doit contenir au moins 3 caractères',
+                    'maxMessage' => 'Le nom doit contenir 4 caractères max'
+                ])
+            ]
+        );
+        $metadata->addPropertyConstraint(
+            'prenom',
+            new NotBlank(['message' => 'Le prénom est obligatoire'])
+        );
+    }
 
     public function getId(): ?int
     {
