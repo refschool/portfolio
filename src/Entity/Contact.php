@@ -20,34 +20,38 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="CONTACT.PHP Validation du formulaire : le nom ne peut pas être vide.")
-     * @Assert\Length(min=2,minMessage="CONTACT.PHP Caracteres 2+ merci")
+     * @Assert\NotBlank(message="Class Contact Validation du formulaire : le nom est obligatoire.")
+     * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères  ")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="L'email est obligatoire")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le téléphone est obligatoire")
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez mettre un message")
      */
     private $message;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints(
+        /*         $metadata->addPropertyConstraints(
             'nom',
             [
                 new Assert\NotBlank(['message' => 'Class Contact Le nom est obligatoire']),
@@ -62,7 +66,7 @@ class Contact
         $metadata->addPropertyConstraint(
             'prenom',
             new Assert\NotBlank(['message' => 'Le prénom est obligatoire'])
-        );
+        ); */
     }
 
     public function getId(): ?int
