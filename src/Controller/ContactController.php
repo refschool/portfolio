@@ -3,22 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
-use Doctrine\ORM\Entity;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\GreaterThan;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactController extends AbstractController
 {
@@ -54,16 +45,21 @@ class ContactController extends AbstractController
     /**
      * @Route("/admin/{id}/editerMessageContact", name="messageContactEdit")
      */
-    public function editerMessageContact($id, ContactRepository $contactRepository, Request $request,
-    EntityManagerInterface $em, ValidatorInterface $validator){
-        
+    public function editerMessageContact(
+        $id,
+        ContactRepository $contactRepository,
+        Request $request,
+        EntityManagerInterface $em,
+        ValidatorInterface $validator
+    ) {
+
         $contact = new Contact();
-        
+
         $contact->setNom('Tchen');
         $erreurs  = $validator->validate($contact);
-        
+
         //Compte le nombre d'erreurs
-        if ($erreurs->count() > 0 ){
+        if ($erreurs->count() > 0) {
             dd("Il y a des erreurs", $erreurs);
         }
         dd("Tout va bien");
@@ -73,7 +69,7 @@ class ContactController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if ($form->isSubmitted()) {
             $em->flush();
 
             return $this->redirectToRoute('homepage');
@@ -81,7 +77,7 @@ class ContactController extends AbstractController
 
         $formView = $form->createView();
 
-        return $this->render('contact/edit.html.twig',[
+        return $this->render('contact/edit.html.twig', [
             'contact' => $message,
             'formView' => $formView
         ]);
