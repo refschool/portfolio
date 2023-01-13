@@ -20,20 +20,21 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Class Contact Validation du formulaire : le nom est obligatoire.")
+     * @Assert\NotBlank(message="Validation du formulaire : le nom est obligatoire.")
      * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire", groups={"with-prenom"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'adresse email '{{ value }}' n'est pas valide")
      */
     private $email;
 
@@ -49,26 +50,6 @@ class Contact
      */
     private $message;
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        /*         $metadata->addPropertyConstraints(
-            'nom',
-            [
-                new Assert\NotBlank(['message' => 'Class Contact Le nom est obligatoire']),
-                new Assert\Length([
-                    'min' => 3,
-                    'max' => 4,
-                    'minMessage' => 'Le nom doit contenir au moins 3 caractères',
-                    'maxMessage' => 'Le nom doit contenir 4 caractères max'
-                ])
-            ]
-        );
-        $metadata->addPropertyConstraint(
-            'prenom',
-            new Assert\NotBlank(['message' => 'Le prénom est obligatoire'])
-        ); */
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -78,7 +59,7 @@ class Contact
     {
         return $this->nom;
     }
-    // "?" permet de passer valeur vide formulaire
+    // "?" permet de passer valeur vide formulaire, droit d'envoyer du null
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;

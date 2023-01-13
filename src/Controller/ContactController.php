@@ -19,11 +19,7 @@ class ContactController extends AbstractController
      */
     public function envoyerMessageContact(Request $request, EntityManagerInterface $em, ValidatorInterface $vi)
     {
-        $contact = new Contact;
 
-        $resultat = $vi->validate($contact);
-
-        dd($resultat);
         //getForm + setData
         $form = $this->createForm(ContactType::class);
         //analyse request
@@ -54,10 +50,8 @@ class ContactController extends AbstractController
 
         $message = $contactRepository->find($id);
 
-        //validation groups
-        $form = $this->createForm(ContactType::class, $message, [
-            "validation_groups" => ["Default", "with-prenom"]
-        ]);
+
+        $form = $this->createForm(ContactType::class, $message);
 
         $form->handleRequest($request);
 

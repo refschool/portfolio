@@ -18,10 +18,7 @@ class ContactType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre nom'],
-                'required' => false,
-                'constraints' => new Assert\NotBlank([
-                    'message' => 'Validation du formulaire : Le nom ne peut pas être vide.'
-                ])
+                'required' => false
             ])
             ->add('prenom', TextType::class, [
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre prenom'],
