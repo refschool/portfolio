@@ -21,13 +21,13 @@ class Contact
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Class Contact Validation du formulaire : le nom est obligatoire.")
-     * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères  ")
+     * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\NotBlank(message="Le prénom est obligatoire", groups={"with-prenom"})
      */
     private $prenom;
 
