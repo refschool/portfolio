@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -35,14 +36,24 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        return $userProvider->loadUserByUsername($credentials['email']);
+        try {
+            return $userProvider->loadUserByUsername($credentials['email']);
+        } catch (UsernameNotFoundException $e) {
+            throw new AuthenticationException("Cette adresse email n'est pas connue");
+        }
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
         // Vérifier que le mot de passe fourni correspond bien au mot de passe de la base de données
         //$credentials['password] matches => $user->getPassword()
-        return $this->encoder->isPasswordValid($user, $credentials['password']);
+        $isValid = $this->encoder->isPasswordValid($user, $credentials['password']);
+
+        if (!$isValid) {
+            throw new AuthenticationException("Les informations ne correspondent pas.");
+        }
+
+        return true;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
