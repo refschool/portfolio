@@ -51,3 +51,7 @@
       font-weight: bold;
       padding-top: 1rem;
   }
+
+  #projets>div {
+      border: 1px solid black;
+  }
