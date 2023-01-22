@@ -4,14 +4,12 @@ namespace App\Form;
 
 use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
 {
@@ -19,22 +17,41 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre nom'],
-                'required' => false,
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre nom'],
+                'required' => false
             ])
             ->add('prenom', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre prenom'],
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre prenom'],
                 'required' => false
-            ])->add('telephone', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre telephone'],
+            ])
+            ->add('telephone', TextType::class, [
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre telephone'],
                 'required' => false
-            ])->add('email', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre email'],
+            ])
+            ->add('email', TextType::class, [
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre email'],
                 'required' => false
-            ])->add('message', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Tapez votre message'],
+            ])
+            ->add('message', TextType::class, [
+                'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre message'],
                 'required' => false
             ]);
+
+        // Evenement : affiche le bloc nom si l'id est null
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+
+            /** @var Contact */
+            /*   
+                $contact = $event->getData();
+         
+                if($contact->getId() === null) {
+                    $form->add('nom', TextType::class, [
+                        'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre nom'],
+                        'required' => false,
+                    ]);
+                } */
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

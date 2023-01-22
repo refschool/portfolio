@@ -1,99 +1,49 @@
 {% extends "base.html.twig" %}
 
-
 {% block body %}
-	<style>
-		#rouge {
-			padding: 0 !important;
-		}
-		#rouge > div.bg-danger.text-white {
 
-			padding-top: 10px;
-			padding-left: 10px;
+	<div id='cv' class="row border border-dark">
+		<div class="col-lg-8 col-md-12">
 
-		}
-		#rouge > div.bg-danger.text-white > h2 {
-			padding-bottom: 10px;
-		}
-
-		#blanc {
-			padding: 20px;
-		}
-	</style>
-
-	<div class="row">
-		<div class="col-8 w-25 p-3" id='rouge'>
-
-			<div class='bg-danger text-white'>
-				<h1>John Tchen</h1>
-				<h2>Développeur WEB Fullstack</h2>
-			</div>
-
-			<div id='blanc'>
-				<h3 class='text-danger'>EXPÉRIENCES</h3>
-				<div>
-					<div>
-						<span class="font-weight-bold">
-							Serveur</span><br/>Orient Express - 2000
-						<ul></ul>
-					</div>
-					<div>
-						<span class="font-weight-bold">
-							Dev</span><br/>ComeOn - 10/2020 - 12/2020
-						<ul></ul>
-					</div>
-					<div>
-						<span class="font-weight-bold">
-							Développeur d'applications mobiles</span><br/>L2K - 2000
-						<ul>
-							<li>Rédaction des livrables</li>
-							<li>Déploiement</li>
-						</ul>
-					</div>
-
-					<div>
-						<span class="font-weight-bold">
-							Développeur web</span><br/>la Fabrik - 2015 à 2016
-						<ul></ul>
-					</div>
-
-					<h3 class='text-danger'>COMPÉTENCES</h3>
-
-					<span class="font-weight-bold">
-						Langages WEB</span>
-					<ul>
-						<li>PHP</li>
-						<li>JS</li>
-					</ul>
-					<span class="font-weight-bold">
-						Framework</span>
-					<ul>
-						<li>Symfony</li>
-						<li>Bootstrap</li>
-					</ul>
-				</div>
-
-
+			<div class="pl-5 pt-5 row ">
+				{% include "_experiences.html.twig" %}
+ 
+ 				<div class="w-100"></div>
+ 				
+				{% include "_competences.html.twig" %}
+				{% include "_projets.html.twig" %}
+				{% include "_formations.html.twig" %}
+				{% include "_langues.html.twig" %}
 			</div>
 		</div>
 
+		<div id='profil' class="col-lg-4 col-md-12 border-left border-dark text-white">
+			<div class="row border-dark"> 
+				<div class='col-12 h3 font-weight-bold'>John Tchen</div>
+				<div class='col-12 '>Développeur WEB Fullstack</div>
+			</div>
 
-		<div class="col-4 bg-danger text-white text-center">
-			Photo
-			<h3>CONTACT</h3>
-			<ul>
-				<li>johntchen.mos@gmail.com</li>
-				<li>+33 6 58 08 19 86</li>
-				<li>14 rue du Tibet, Robinson, Mont-Dore, France</li>
-			</ul>
-
+			<!--<div id='photo-profil' class='d-flex justify-content-center'>
+				<img alt='photo-de-profil' src="{{ asset('assets/img/.jpg') }}">
+			</div>-->					
+		
+			<h3>Info personnel</h3>
+			<span>Email</span>
+				<a href='mailto:johntchen.mos@gmail.com'>johntchen.mos@gmail.com</a>
+			<span>CV</span>
+				<a href="{{ asset('assets/CV John Tchen.pdf') }}">CV</a>
+			<span>Téléphone</span>
+				<a href="tel:+33658081986">+33 6 58 08 19 86</a>
+				 
+			<span>Adresse</span>
+				40 rue des Quêteurs, Toulouse, France
+			
 			<div>
 				<h3>Présentation</h3>
-				Vive la vie, les crevettes bleues
+				Bonjour, je suis John, Développeur spécialisé en PHP / Symfony, actuellement en recherche d'emploi dans la région de Toulouse
+			</div>
 			</div>
 		</div>
-
-
 	</div>
 
 {% endblock %}

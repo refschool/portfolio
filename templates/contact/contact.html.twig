@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
-{% block title %}Formulaire contact
-{% endblock %}
+
+{% block title %}Formulaire contact{% endblock %}
+
 {% block body %}
-	<h1>Page Contact</h1>
+<div class="mx-auto col-md-6 mt-5">
+	<h1>Contact</h1>
 
 	{{ form_start(formView) }}
-
 
 	{{ form_errors(formView) }}
 
@@ -18,11 +19,12 @@
 	{{ form_row(formView.email) }}
 	{{ form_row(formView.message) }}
 
-	<button type="submit" class="btn btn-primary">
-		<i class="fas fa-save"></i>
-		Envoyer
+	<button type="submit" class="btn btn-primary ">
+		<i class="fas fa-save"></i>Envoyer
 	</button>
 
 
 	{{ form_end(formView) }}
+
+</div>
 {% endblock %}

@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="{{ path('homepage') }}">Home
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('cv') }}">CV</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('dontpn') }}">Faites un don</a>
+			</li>
+			<li class="nav-item  ">
+				<a class="nav-link" href="{{ path('projets') }}">Projets</a>
+<!--
+				<a class="nav-link " href="{{ path('projets') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+					Projets
+				</a>				
+-->
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="../debuterSymfony" target="_blank">Postman</a>
+					<a class="dropdown-item" href="" target="_blank">Trocnc</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="" target="_blank">Module de Paiement Stripe</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('envoyerMessageContact') }}">Contact</a>
+			</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('security_logout') }}">Logout</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('security_login') }}">Login</a>
+					</li>
+				{% endif %}
+
+
+		</ul>
+	</div>
+</nav>

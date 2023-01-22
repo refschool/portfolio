@@ -3,12 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Entity;
-use App\Repository\ContactRepository;
-use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -24,31 +19,35 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="CONTACT.PHP Validation du formulaire : le nom ne peut pas être vide.")
-     * @Assert\Length(min=2,minMessage="CONTACT.PHP Caracteres 2+ merci")
+     * @Assert\NotBlank(message="Validation du formulaire : le nom est obligatoire.")
+     * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Email(message="L'adresse email '{{ value }}' n'est pas valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le téléphone est obligatoire")
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez mettre un message")
      */
     private $message;
-
 
     public function getId(): ?int
     {
@@ -59,7 +58,7 @@ class Contact
     {
         return $this->nom;
     }
-
+    // "?" permet de passer valeur vide formulaire, droit d'envoyer du null
     public function setNom(?string $nom): self
     {
         $this->nom = $nom;

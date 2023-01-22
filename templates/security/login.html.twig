@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion
-{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-	<h1>Connexion
-	</h1>
+	<h1>Connexion</h1>
+
+{% if error %}
+<div class="alert alert danger">
+{{ error.message }}
+</div>
+{% endif %}
 
 	{{ form_start(formView) }}
 

@@ -2,18 +2,14 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\Entity;
 use App\Entity\Contact;
-//use App\Repository\ContactRepository;
 use App\Form\ContactType;
+use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
@@ -26,7 +22,7 @@ class ContactController extends AbstractController
 
         //getForm + setData
         $form = $this->createForm(ContactType::class);
-
+        //analyse request
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -41,6 +37,34 @@ class ContactController extends AbstractController
         $formView = $form->createView();
 
         return $this->render('contact/contact.html.twig', [
+            'formView' => $formView
+        ]);
+    }
+
+
+    /**
+     * @Route("/admin/{id}/editerMessageContact", name="messageContactEdit")
+     */
+    public function editerMessageContact($id, ContactRepository $contactRepository, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
+    {
+
+        $message = $contactRepository->find($id);
+
+
+        $form = $this->createForm(ContactType::class, $message);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('contact/edit.html.twig', [
+            'contact' => $message,
             'formView' => $formView
         ]);
     }

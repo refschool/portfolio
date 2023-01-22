@@ -2,4 +2,9 @@
 #   properties:
 #     nom:
 #       - NotBlank: { message: "YAML Le nom est obligatoire" }
-#       - Length: {min: 2, max: 255, minMessage: "Caracteres + de 2 merci"}
+#       - Length: {
+#         min: 2, 
+#         max: 255, 
+#         minMessage: "Caracteres + de 2 merci"}
+#     prenom:
+#       - NotBlank: { message: "YAML Le prénom est obligatoire"}
