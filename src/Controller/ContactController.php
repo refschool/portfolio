@@ -31,7 +31,8 @@ class ContactController extends AbstractController
 
             $em->persist($contact);
             $em->flush();
-            dd($contact);
+
+            return $this->render('hello.html.twig');
         }
 
         $formView = $form->createView();
