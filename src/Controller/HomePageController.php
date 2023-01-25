@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,10 +20,9 @@ class HomePageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function hello(EntityManagerInterface $em)
+    public function hello(EntityManagerInterface $em, $prenom)
     {
-
-
+        dd($prenom);
         return $this->render('hello.html.twig');
     }
 
@@ -118,6 +118,4 @@ class HomePageController extends AbstractController
     {
         return $this->render('echec.html.twig', ['msg' => $data]);
     }
-
-
 }
