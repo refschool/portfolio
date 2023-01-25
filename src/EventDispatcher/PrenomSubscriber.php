@@ -2,10 +2,20 @@
 
 namespace App\EventDispatcher;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
-class PrenomListener
+class PrenomSubscriber implements EventSubscriberInterface
 {
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            'kernel.request' => 'addPrenomToAttributes',
+            'kernel.controller' => 'test1',
+            'kernel.response' => 'test2'
+        ];
+    }
 
     public function addPrenomToAttributes(RequestEvent $requestEvent)
     {
