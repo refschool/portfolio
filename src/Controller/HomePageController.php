@@ -20,9 +20,9 @@ class HomePageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function hello(EntityManagerInterface $em, $prenom)
+    public function hello(EntityManagerInterface $em, $prenom, Request $request)
     {
-        dd($prenom);
+
         return $this->render('hello.html.twig');
     }
 

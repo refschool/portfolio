@@ -11,4 +11,14 @@ class PrenomListener
     {
         $requestEvent->getRequest()->attributes->set('prenom', 'John');
     }
+
+    public function test1()
+    {
+        dump('test1');
+    }
+
+    public function test2()
+    {
+        dump('test2');
+    }
 }
