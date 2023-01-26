@@ -38,14 +38,15 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $contact = $form->getData();
-            dd($contact);
+
             //$em->persist($contact);
             //$em->flush();
 
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
             $contactEvent = new MessageSuccessEvent($contact);
-            $dispatcher->dispatch($contact, 'message_success');
+
+            $dispatcher->dispatch($contactEvent, 'message.success');
 
             $flashBag->add('success', 'Votre message a été envoyé.');
             $flashBag->add('success', 'Vous recevrez une copie de votre message.');
