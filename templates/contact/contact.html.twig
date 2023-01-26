@@ -6,6 +6,15 @@
 <div class="mx-auto col-md-6 mt-5">
 	<h1>Contact</h1>
 
+
+	{% for rubrique, messages in app.flashes %}
+	
+	<div class="alert alert-{{rubrique}}">
+		{% for message in messages %}
+			<p>{{message}}</p>
+		{% endfor %}
+	</div>
+	{% endfor %}
 	{{ form_start(formView) }}
 
 	{{ form_errors(formView) }}
