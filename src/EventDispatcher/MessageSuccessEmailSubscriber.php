@@ -4,6 +4,7 @@ namespace App\EventDispatcher;
 
 use App\Event\MessageSuccessEvent;
 use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -30,13 +31,18 @@ class MessageSuccessEmailSubscriber implements EventSubscriberInterface
 
     public function sendSuccessEmail(MessageSuccessEvent $messageEvent)
     {
-        $email = new Email();
+        $email = new TemplatedEmail();
         $fromEmail = $messageEvent->getMessage()->getEmail();
         $nom = $messageEvent->getMessage()->getNom();
         $prenom = $messageEvent->getMessage()->getPrenom();
-        $email->from(new Address($fromEmail, $nom . ' ' . $prenom))
+        $email
+            ->from(new Address($fromEmail, $nom . ' ' . $prenom))
             ->to("admin@test.com")
             ->text("Le service admin a bien reçu votre message")
+            ->htmlTemplate('emails/contact_view.html.twig')
+            ->context([
+                'contact' => $messageEvent->getMessage()
+            ])
             ->subject("Reception du message");
 
         $this->mailer->send($email);
