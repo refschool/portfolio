@@ -5,6 +5,7 @@ namespace App\Controller\Contact;
 use App\Entity\Contact;
 use App\Event\MessageSuccessEvent;
 use App\Form\ContactType;
+use App\Form\ForgottenPasswordType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,6 +87,35 @@ class ContactController extends AbstractController
 
         return $this->render('contact/edit.html.twig', [
             'contact' => $message,
+            'formView' => $formView
+        ]);
+    }
+
+    /**
+     *  @Route("/forgottenPassword", name="forgottenPassword")
+     */
+    public function forgottenPassword(ContactRepository $contactRepository, Request $request, EntityManagerInterface $em)
+    {
+
+        $form = $this->createForm(ForgottenPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $email = $form->getData();
+
+            //verifie email
+            $message = $contactRepository->find($email);
+            //dd($email);
+            return $this->redirectToRoute('homepage');
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('forgottenPassword.html.twig', [
+
             'formView' => $formView
         ]);
     }
