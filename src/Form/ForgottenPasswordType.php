@@ -28,7 +28,7 @@ class ForgottenPasswordType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
 
-            /** @var Contact */
+            /** @var User */
             /*   
                 $contact = $event->getData();
          

@@ -3,10 +3,12 @@
 namespace App\Controller\Contact;
 
 use App\Entity\Contact;
+use App\Entity\User;
 use App\Event\MessageSuccessEvent;
 use App\Form\ContactType;
 use App\Form\ForgottenPasswordType;
 use App\Repository\ContactRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -94,7 +96,7 @@ class ContactController extends AbstractController
     /**
      *  @Route("/forgottenPassword", name="forgottenPassword")
      */
-    public function forgottenPassword(ContactRepository $contactRepository, Request $request, EntityManagerInterface $em)
+    public function forgottenPassword(UserRepository $userRepository, Request $request, EntityManagerInterface $em)
     {
 
         $form = $this->createForm(ForgottenPasswordType::class);
@@ -102,12 +104,17 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+
 
             $email = $form->getData();
 
             //verifie email
-            $message = $contactRepository->find($email);
+
+            $user = $em->getRepository(User::class)
+                ->findByEmail($email);
+            //$em->flush();
+            dd($user);
+
             //dd($email);
             return $this->redirectToRoute('homepage');
         }
