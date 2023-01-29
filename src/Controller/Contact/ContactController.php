@@ -10,12 +10,15 @@ use App\Form\ForgottenPasswordType;
 use App\Repository\ContactRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 class ContactController extends AbstractController
 {
@@ -96,7 +99,7 @@ class ContactController extends AbstractController
     /**
      *  @Route("/forgottenPassword", name="forgottenPassword")
      */
-    public function forgottenPassword(UserRepository $userRepository, Request $request, EntityManagerInterface $em)
+    public function forgottenPassword(UserRepository $userRepository, Request $request, EntityManagerInterface $em, MailerInterface $mailer)
     {
 
         $form = $this->createForm(ForgottenPasswordType::class);
@@ -112,6 +115,19 @@ class ContactController extends AbstractController
 
             $user = $em->getRepository(User::class)
                 ->findByEmail($email);
+
+            $email = new TemplatedEmail();
+            $fromEmail = 'reset-no-reply@gmail.com';
+            $email
+                ->from(new Address($fromEmail, 'Bot Reset'))
+                ->to("admin@test.com")
+                ->text("Le service admin a bien reçu votre message")
+
+                ->subject("Reset MDP");
+
+            $mailer->send($email);
+
+            //$this->mailer->send()  
             //$em->flush();
             dd($user);
 
