@@ -102,7 +102,7 @@ class ContactController extends AbstractController
     public function forgottenPassword(UserRepository $userRepository, Request $request, EntityManagerInterface $em, MailerInterface $mailer)
     {
 
-        $form = $this->createForm(ForgottenPasswordType::class);
+        $form = $this->createForm(EmailForgottenPasswordType::class);
 
         $form->handleRequest($request);
 

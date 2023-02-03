@@ -21,26 +21,5 @@ class HashController extends AbstractController
      */
     public function ashe(EntityManagerInterface $em)
     {
-        /*
-        //Creer Admin
-        $admin = new User;
-        $hash = $this->encoder->encodePassword($admin, "admin");
-        $admin->setEmail("admin@gmail.com")
-            ->setPassword($hash)
-            ->setFullname("Admin")
-            ->setRoles(['ROLE_ADMIN']);
-        $em->persist($admin);
-
-        //Creer Users
-        for ($u = 5; $u < 10; $u++) {
-            $user = new User();
-            $hash = $this->encoder->encodePassword($user, "password");
-            $user->setEmail("user$u@gmail.com")
-                ->setFullname("00 $u")
-                ->setPassword($hash);
-            $em->persist($user);
-        }
-        $em->flush();
-        return $this->render('hello.html.twig');*/
     }
 }
