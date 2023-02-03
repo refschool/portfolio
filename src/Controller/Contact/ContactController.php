@@ -6,7 +6,7 @@ use App\Entity\Contact;
 use App\Entity\User;
 use App\Event\MessageSuccessEvent;
 use App\Form\ContactType;
-use App\Form\ForgottenPasswordType;
+use App\Form\EmailForgottenPasswordType;
 use App\Repository\ContactRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
