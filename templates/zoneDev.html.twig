@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Zone Dev{% endblock %}
+
+{% block body %}
+
+<form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload" onchange="showPreview(event);">
+    <input type="submit" value="Upload Image" name="submit">
+    <div class="preview">
+        <img id="file-ip-1-preview">
+    </div>
+</form>
+
+<script type="text/javascript">
+    function showPreview(event){
+        if(event.target.files.length > 0){
+            // Recup uri
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("file-ip-1-preview");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+</script>
+{% endblock %}

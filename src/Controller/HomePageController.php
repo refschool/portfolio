@@ -58,10 +58,18 @@ class HomePageController extends AbstractController
     }
 
     /**
+     * @Route("/zoneDev", name="zoneDev")
+     */
+    public function zoneDev()
+    {
+        return $this->render('zoneDev.html.twig');
+    }
+
+    /**
      * @Route("/upload", name="upload")
      */
     public function upload()
     {
-        return $this->render('upload.html.twig');
+        return $this->render('upload.php');
     }
 }
