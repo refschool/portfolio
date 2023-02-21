@@ -5,21 +5,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title> {% block title %}Portfolio {% endblock %}</title>
 
-		<!-- Feuilles de styles -->
-		<link rel="stylesheet" href="{{ asset('assets/css/styles.css')}}">
-		<link rel="stylesheet" href="{{ asset('assets/css/stripe.css')}}">
-		<!-- Fichiers JS -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-		<script src="https://js.stripe.com/v3/"></script>
+		
+		
 		{# Run `composer require symfony/webpack-encore-bundle`
 																																																															and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
+			<!-- Feuilles de styles -->
+			<link rel="stylesheet" href="{{ asset('assets/css/styles.css')}}">
+			<link rel="stylesheet" href="{{ asset('assets/css/stripe.css')}}">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 			{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
 
 		{% block javascripts %}
-
+			<!-- Fichiers JS -->
+			<script src="https://js.stripe.com/v3/"></script>
 			{#{{ encore_entry_script_tags('app') }}#}
 		{% endblock %}
 	</head>
