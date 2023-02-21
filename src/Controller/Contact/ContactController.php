@@ -61,7 +61,6 @@ class ContactController extends AbstractController
             'formView' => $formView
         ]);
     }
-
     public function confirm()
     {
     }
