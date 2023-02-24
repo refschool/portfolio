@@ -8,6 +8,7 @@
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "karser/karser-recaptcha3-bundle": "^0.1.23",
         "liorchamla/faker-prices": "^2.0",
         "mbezhanov/faker-provider-collection": "^2.0",
         "sensio/framework-extra-bundle": "^6.2",
