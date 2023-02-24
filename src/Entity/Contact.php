@@ -49,6 +49,11 @@ class Contact
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $brochureFilename;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +115,18 @@ class Contact
     public function setMessage(?string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getBrochureFilename(): ?string
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename(?string $brochureFilename): self
+    {
+        $this->brochureFilename = $brochureFilename;
 
         return $this;
     }
