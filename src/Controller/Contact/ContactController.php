@@ -13,9 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\FileUploader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ContactController extends AbstractController
 {
@@ -28,11 +32,13 @@ class ContactController extends AbstractController
         EntityManagerInterface $em,
         ValidatorInterface $vi,
         FlashBagInterface $flashBag,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        SluggerInterface $slugger,
+        FileUploader $fileUploader
     ) {
         $flashBag->add('info', 'Le formulaire est en cours de développement.');
 
-
+        $contact = new Contact;
         //getForm + setData
         $form = $this->createForm(ContactType::class);
         //analyse request
@@ -40,10 +46,37 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+            /** @var UploadedFile $brochureFile */
+            $brochureFile = $form->get('brochure')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($brochureFile) {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('brochures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $contact->setBrochureFilename($newFilename);
+            }
+
             $contact = $form->getData();
 
-            //$em->persist($contact);
-            //$em->flush();
+            $em->persist($contact);
+            $em->flush();
 
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
@@ -61,7 +94,6 @@ class ContactController extends AbstractController
             'formView' => $formView
         ]);
     }
-
     public function confirm()
     {
     }
@@ -81,6 +113,8 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
+
+
 
             return $this->redirectToRoute('homepage');
         }
