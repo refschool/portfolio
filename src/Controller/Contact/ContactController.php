@@ -38,7 +38,7 @@ class ContactController extends AbstractController
     ) {
         $flashBag->add('info', 'Le formulaire est en cours de développement.');
 
-
+        $contact = new Contact;
         //getForm + setData
         $form = $this->createForm(ContactType::class);
         //analyse request
@@ -49,10 +49,10 @@ class ContactController extends AbstractController
             $brochureFile = $form->get('brochure')->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
-                //$product->setBrochureFilename($brochureFileName);
+                $contact->setBrochureFilename($brochureFileName);
             }
-            /*
-            /** @var UploadedFile $brochureFile *//*
+
+            /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
 
             // this condition is needed because the 'brochure' field is not required
@@ -75,13 +75,13 @@ class ContactController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                //$product->setBrochureFilename($newFilename);
+                $contact->setBrochureFilename($newFilename);
             }
-*/
+
             $contact = $form->getData();
 
-            //$em->persist($contact);
-            //$em->flush();
+            $em->persist($contact);
+            $em->flush();
 
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
