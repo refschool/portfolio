@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvents;
@@ -60,7 +62,12 @@ class ContactType extends AbstractType
                     ])
 
                 ]
-            ]);
+            ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+                'locale' => 'fr',
+            ]);;
 
         // Evenement : affiche le bloc nom si l'id est null
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

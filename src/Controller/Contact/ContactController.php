@@ -19,6 +19,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\FileUploader;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ContactController extends AbstractController
@@ -34,6 +35,7 @@ class ContactController extends AbstractController
         FlashBagInterface $flashBag,
         EventDispatcherInterface $dispatcher,
         SluggerInterface $slugger,
+        Recaptcha3Validator $recaptcha3Validator,
         FileUploader $fileUploader
     ) {
         $flashBag->add('info', 'Le formulaire est en cours de développement.');
@@ -46,6 +48,9 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Récupère le score
+            $score = $recaptcha3Validator->getLastResponse()->getScore();
+            dd($score);
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
