@@ -49,7 +49,7 @@ class ContactController extends AbstractController
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
-
+            $contact = $form->getData();
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
@@ -57,7 +57,7 @@ class ContactController extends AbstractController
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
-
+                $contact->setBrochureFilename($newFilename);
                 // Move the file to the directory where brochures are stored
                 try {
                     $brochureFile->move(
@@ -70,10 +70,8 @@ class ContactController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                $contact->setBrochureFilename($newFilename);
-            }
 
-            $contact = $form->getData();
+            }
 
             $em->persist($contact);
             $em->flush();
@@ -106,15 +104,12 @@ class ContactController extends AbstractController
 
         $message = $contactRepository->find($id);
 
-
         $form = $this->createForm(ContactType::class, $message);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-
-
 
             return $this->redirectToRoute('homepage');
         }

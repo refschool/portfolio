@@ -39,6 +39,7 @@ class ContactType extends AbstractType
                 'required' => false
             ])
             ->add('brochure', FileType::class, [
+                'attr' => ['class' => 'form-group form-control col-md-12'],
                 'label' =>  'Brochure (PDF file)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -50,7 +51,7 @@ class ContactType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '1024M',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
