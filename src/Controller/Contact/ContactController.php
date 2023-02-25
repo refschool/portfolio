@@ -45,12 +45,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $brochureFile */
-            $brochureFile = $form->get('brochure')->getData();
-            if ($brochureFile) {
-                $brochureFileName = $fileUploader->upload($brochureFile);
-                $contact->setBrochureFilename($brochureFileName);
-            }
+
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
