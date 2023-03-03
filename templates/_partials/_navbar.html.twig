@@ -30,11 +30,15 @@
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('envoyerMessageContact') }}">Contact</a>
 			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('zoneDev') }}">Zone de développement</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('produits') }}">Produits</a>
+			</li>
 				{% if app.user %}
-					<li class="nav-item">
+					<li class="nav-item" style="float:right;">
 						<a class="nav-link" href="{{ path('security_logout') }}">Logout</a>
 					</li>
 					{% else %}

@@ -20,14 +20,20 @@ class HomePageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function hello(ProductRepository $productRepository)
+    public function hello()
+    {
+        return $this->render('hello.html.twig');
+    }
+    /**
+     * @Route("/produits", name="produits")
+     */
+    public function produits(ProductRepository $productRepository)
     {
         $products = $productRepository->findBy([], [], 3);
-        return $this->render('hello.html.twig', [
+        return $this->render('produits.html.twig', [
             'products' => $products
         ]);
     }
-
     /**
      * @Route("/cv", name="cv")
      */

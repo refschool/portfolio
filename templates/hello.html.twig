@@ -6,35 +6,9 @@
 {% endblock %}
 
 {% block body %}
+Bienvenue sur mon site
+En 2023 et à mon grand âge j'ai encore rien trouvé de mieux que de dire Bienvenue sur la page d'accueil. Bref vous êtes sur mon site, on va parler développement, on va parler 3D, on va parler des questions existentielles qui traversent mon esprit à 3 heures du matin du genre "qui a eu l'idée d'utiliser des matériaux pour emmagasiner des données ?"
 
-    <h1>Nos produits phares</h1>
-    <div class='row'>
-        {% for product in products %}
-        <div class="col">
-            <div class="card">
-                <img src="{{ product.mainPicture }}" class="img-fluid" alt='chaise en bois'>
-                <div class='card-body'>
-                    <h4 class="card-title">{{ product.name }} ({{ product.price/100 }}€)</h4>
-                    <p class='card-text'>{{ product.shortDescription }}</p>
-                    <a href="" class="btn btn-primary btn-sm">Détails</a>
-                    <a href="" class="btn btn-success btn-sm">Ajouter</a>
-                </div>
-            </div>
-        </div>
-        {% endfor%}
-    </div>
-    <hr>
-    <h2>Un service irreprochable</h2>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga, nemo.</p>
-
-    <div class="row">
-        <div class="col">
-            <div class="card bg-primary text-white text-center">
-                <div class="card-body">
-                    <i class="fas fa-truck fa-2x mb-3"></i>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia doloribus officiis asperiores corporis porro molestias.</p>
-                </div>
-            </div>
-        </div>
-</div>
+Pour celleux qui me suivent sur twitter, vous savez que j'aime raconter ma vie, donc je vais aussi vous parler de ce qui m'anime, ce qui me passionne (peut-être pas toujours en lien avec le dev mais eh, on est des humains) et vous verrez qu'en fait j'ai des passions qui peuvent tout à fait s'intégrer dans le développement, ce qui m'arrange un peu, soyons honnêtes.
+ 
 {% endblock %}
