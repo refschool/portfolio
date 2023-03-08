@@ -26,13 +26,15 @@
 	</head>
 
 	<body>
-		<div class="">
+	{% include "_partials/_navbar.html.twig" %}
+		<div class="container">
 
-			{% include "_partials/_navbar.html.twig" %}
+			
 	
 			{% block body %}{% endblock %}
-			{% include "_partials/_footer.html.twig" %}
+			
 		</div>
+		{% include "_partials/_footer.html.twig" %}
 	</body>
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Form\UploadType;
-use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,16 +23,7 @@ class HomePageController extends AbstractController
     {
         return $this->render('hello.html.twig');
     }
-    /**
-     * @Route("/produits", name="produits")
-     */
-    public function produits(ProductRepository $productRepository)
-    {
-        $products = $productRepository->findBy([], [], 3);
-        return $this->render('produits.html.twig', [
-            'products' => $products
-        ]);
-    }
+
     /**
      * @Route("/cv", name="cv")
      */
