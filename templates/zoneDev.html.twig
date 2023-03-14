@@ -7,18 +7,11 @@
 {% block title %}Zone Dev{% endblock %}
 
 {% block body %}
-<fieldset>
-    <legend>Upload PDF</legend>
-{{ form_start(formView) }}
-
- <input class="btn btn-primary" type="submit" value="Upload Image" name="submit">
  
-{{ form_end(formView) }}
-</fieldset>
  <fieldset>
     <legend> Upload JPG </fieldset>
        <div class="preview" >
-        <img id="file-ip-1-preview" style="width:200px; height:200px;">
+        <img id="file-ip-1-preview">
     </div>
     <form action="{{ path('upload') }}" method="post" enctype="multipart/form-data">
         Select image to upload:

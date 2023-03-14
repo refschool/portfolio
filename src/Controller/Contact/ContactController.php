@@ -50,7 +50,7 @@ class ContactController extends AbstractController
 
             // Récupère le score
             $score = $recaptcha3Validator->getLastResponse()->getScore();
-            dd($score);
+
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
