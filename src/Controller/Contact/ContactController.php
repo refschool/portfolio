@@ -38,7 +38,7 @@ class ContactController extends AbstractController
         Recaptcha3Validator $recaptcha3Validator,
         FileUploader $fileUploader
     ) {
-        $flashBag->add('info', 'Le formulaire est en cours de développement.');
+        //$flashBag->add('info', 'Le formulaire est en cours de développement.');
 
         $contact = new Contact;
         //getForm + setData
@@ -88,7 +88,7 @@ class ContactController extends AbstractController
             $dispatcher->dispatch($contactEvent, 'message.success');
 
             $flashBag->add('success', 'Votre message a été envoyé.');
-            $flashBag->add('success', 'Vous recevrez une copie de votre message.');
+            //$flashBag->add('success', 'Vous recevrez une copie de votre message.');
         }
 
         $formView = $form->createView();
