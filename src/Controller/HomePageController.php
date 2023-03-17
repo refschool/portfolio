@@ -61,12 +61,8 @@ class HomePageController extends AbstractController
      */
     public function zoneDev()
     {
-        $form = $this->createForm(UploadType::class);
 
-        $formView = $form->createView();
-        return $this->render('zoneDev.html.twig', [
-            'formView' => $formView
-        ]);
+        return $this->render('zoneDev.html.twig', []);
     }
 
     /**
