@@ -21,7 +21,7 @@ class ChangePasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Saississez votre mot de pass',
+                            'message' => 'Saississez votre mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
