@@ -23,7 +23,7 @@ class ProductController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{slug}", name="product_category")
+     * @Route("/{slug}",priority=-1, name="product_category")
      */
     public function category($slug, CategoryRepository $categoryRepository): Response
     {
@@ -42,7 +42,7 @@ class ProductController extends AbstractController
 
 
     /**
-     * @Route("/{category_slug}/{slug}", name="product_show")
+     * @Route("/{category_slug}/{slug}", priority=-1,name="product_show" )
      */
     public function show($slug, ProductRepository $productRepository)
     {

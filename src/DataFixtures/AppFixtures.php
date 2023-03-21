@@ -9,7 +9,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
     protected $encoder;
     protected $slugger;
 
-    public function __construct(UserPasswordHasherInterface $encoder, SluggerInterface $slugger)
+    public function __construct(UserPasswordEncoderInterface $encoder, SluggerInterface $slugger)
     {
         $this->encoder = $encoder;
         $this->slugger = $slugger;
@@ -52,10 +52,11 @@ class AppFixtures extends Fixture
         }
 
 
-        $manager->flush();
-        /*
+        //$manager->flush();
+
         $admin = new User;
         $hash = $this->encoder->encodePassword($admin, "admin");
+
         $admin->setEmail("admin@gmail.com")
             ->setFullname("admin")
             ->setPassword($hash)
@@ -70,7 +71,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash);
             $manager->persist($user);
         }
-*/
+
         $manager->flush();
     }
 }

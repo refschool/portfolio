@@ -3,21 +3,27 @@
 namespace App\Controller\Contact;
 
 use App\Entity\Contact;
-use App\Entity\User;
-use App\Event\MessageSuccessEvent;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+
+use App\Event\MessageSuccessEvent;
+
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Mime\Address;
 use App\Service\FileUploader;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -50,7 +56,6 @@ class ContactController extends AbstractController
 
             // Récupère le score
             $score = $recaptcha3Validator->getLastResponse()->getScore();
-
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
@@ -123,6 +128,50 @@ class ContactController extends AbstractController
 
         return $this->render('contact/edit.html.twig', [
             'contact' => $message,
+            'formView' => $formView
+        ]);
+    }
+
+    /**
+     * @Route("/inscription", name="inscription")
+     */
+    public function inscription(
+        Request $request,
+        EntityManagerInterface $em,
+        Recaptcha3Validator $recaptcha3Validator,
+        UserPasswordEncoderInterface $encoder
+    ) {
+        //$flashBag->add('info', 'Le formulaire est en cours de développement.');
+
+        $user = new User;
+        //getForm + setData
+        $form = $this->createForm(UserType::class);
+        //analyse request
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+            // Récupère le score
+            $score = $recaptcha3Validator->getLastResponse()->getScore();
+
+
+
+
+            $user = $form->getData();
+            $password = $user->getPassword();
+
+            $hash = $encoder->encodePassword($user, $password);
+            $user->setPassword($hash);
+
+            $em->persist($user);
+            $em->flush();
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('contact/inscription.html.twig', [
             'formView' => $formView
         ]);
     }
