@@ -12,7 +12,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -142,7 +142,7 @@ class ContactController extends AbstractController
      */
     public function inscription(
         Request $request,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordHasherInterface $encoder
     ) {
         //$flashBag->add('info', 'Le formulaire est en cours de développement.');
 
@@ -160,7 +160,7 @@ class ContactController extends AbstractController
             $user = $form->getData();
             $password = $user->getPassword();
 
-            $hash = $encoder->encodePassword($user, $password);
+            $hash = $encoder->hashPassword($user, $password);
             $user->setPassword($hash);
 
             $this->em->persist($user);
