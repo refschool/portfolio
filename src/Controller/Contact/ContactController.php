@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use App\Event\MessageSuccessEvent;
+use App\Event\ContactSuccessEvent;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -44,7 +44,6 @@ class ContactController extends AbstractController
         Request $request,
         SluggerInterface $slugger
     ) {
-        $this->flashBag->add('info', 'Le formulaire est en cours de développement.');
 
         $contact = new Contact;
         //getForm + setData
@@ -89,7 +88,7 @@ class ContactController extends AbstractController
 
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
-            $contactEvent = new MessageSuccessEvent($contact);
+            $contactEvent = new ContactSuccessEvent($contact);
 
             $this->dispatcher->dispatch($contactEvent, 'message.success');
 
