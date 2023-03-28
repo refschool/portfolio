@@ -6,12 +6,14 @@
 <!-- mx-auto -->
 <div class="col-md-8 mt-5">
 	<h1>Inscription</h1>
-{#
-{% if error %}
-<div class="alert alert danger">
-{{ error.message }}
-</div>
-{% endif %}#}
+	{% for rubrique, messages in app.flashes %}
+	
+	<div class="alert alert-{{rubrique}}">
+		{% for user in messages %}
+			<p>{{user}}</p>
+		{% endfor %}
+	</div>
+	{% endfor %}
 
 	{{ form_start(formView) }}
 

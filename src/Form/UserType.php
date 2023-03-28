@@ -26,7 +26,7 @@ class UserType extends AbstractType
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre email'],
                 'required' => true
             ])
-            ->add('password', PasswordType::class, [
+            ->add('password', TextType::class, [
                 'attr' => ['class' => 'form-group form-control col-md-12', 'placeholder' => 'Tapez votre mot de passe'],
                 'required' => true
             ])

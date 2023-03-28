@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Event\ContactSuccessEvent;
+use App\Event\InscriptionSuccessEvent;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -85,7 +86,6 @@ class ContactController extends AbstractController
 
             $this->em->persist($contact);
             $this->em->flush();
-
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
             $contactEvent = new ContactSuccessEvent($contact);
@@ -164,6 +164,14 @@ class ContactController extends AbstractController
 
             $this->em->persist($user);
             $this->em->flush();
+
+            // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
+            $userEvent = new InscriptionSuccessEvent($user);
+
+            $this->dispatcher->dispatch($userEvent, 'user.success');
+
+            $this->flashBag->add('success', 'Inscription réussi.');
+            $this->flashBag->add('success', 'Vous recevrez une confirmation de votre inscription ainsi que le récap des vos accès.');
         }
 
         $formView = $form->createView();

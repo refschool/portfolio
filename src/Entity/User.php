@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 /**
@@ -21,6 +23,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Le nom est obligatoire.")
+     * 
      */
     private $email;
 
@@ -32,11 +36,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire.")
+     * @Assert\Regex(pattern="/[a-zA-Z0-9[_-{}]/", message="Veuillez saisir un mot de passe complexe composé de lettres, de chiffres et de caractères spéciaux([_-{}]).");
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom et le nom sont obligatoires.")
      */
     private $fullname;
 

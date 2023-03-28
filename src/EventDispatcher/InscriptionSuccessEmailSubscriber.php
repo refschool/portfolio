@@ -2,7 +2,7 @@
 
 namespace App\EventDispatcher;
 
-use App\Event\ContactSuccessEvent;
+use App\Event\InscriptionSuccessEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-class ContactSuccessEmailSubscriber implements EventSubscriberInterface
+class InscriptionSuccessEmailSubscriber implements EventSubscriberInterface
 {
 
     protected $logger;
@@ -25,25 +25,24 @@ class ContactSuccessEmailSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'message.success' => 'sendSuccessEmail'
+            'user.success' => 'sendSuccessEmail'
         ];
     }
 
-    public function sendSuccessEmail(ContactSuccessEvent $messageContactEvent)
+    public function sendSuccessEmail(InscriptionSuccessEvent $userEvent)
     {
         $email = new TemplatedEmail();
-        $fromEmail = $messageContactEvent->getContact()->getEmail();
-        $nom = $messageContactEvent->getContact()->getNom();
-        $prenom = $messageContactEvent->getContact()->getPrenom();
+        $fromEmail = $userEvent->getUser()->getEmail();
+        $fullname = $userEvent->getUser()->getFullname();
         $email
-            ->from(new Address($fromEmail, $nom . ' ' . $prenom))
-            ->to("admin@test.com")
-            ->text("Le service admin a bien reçu votre message")
-            ->htmlTemplate('emails/contact_view.html.twig')
+            ->from(new Address($fromEmail, $fullname))
+            ->to("screfield@gmail.com")
+            ->text("Bienvenue. Inscription réussi.")
+            ->htmlTemplate('emails/inscription_view.html.twig')
             ->context([
-                'contact' => $messageContactEvent->getContact()
+                'user' => $userEvent->getUser()
             ])
-            ->subject("Nous avons reçu votre message.");
+            ->subject("Inscription");
 
         $this->mailer->send($email);
 
