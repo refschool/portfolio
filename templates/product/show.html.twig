@@ -5,6 +5,8 @@ Page de : {{ product.name }}
 {% endblock %}
 
 {% block body %} 
+
+
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Home</a></li>
   <li class="breadcrumb-item"><a href="{{ path('product_category',{ 'slug': product.category.slug} )}}">{{product.category.name}}</a></li>

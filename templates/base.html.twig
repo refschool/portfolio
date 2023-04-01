@@ -29,7 +29,14 @@
 	{% include "_partials/_navbar.html.twig" %}
 		<div class="container">
 
-			
+			{% for rubrique, messages in app.flashes %}
+	
+				<div class="alert alert-{{rubrique}}">
+					{% for message in messages %}
+						<p>{{message}}</p>
+					{% endfor %}
+				</div>
+			{% endfor %}
 	
 			{% block body %}{% endblock %}
 			

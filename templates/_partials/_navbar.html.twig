@@ -29,7 +29,7 @@
 			</li>
 			{% for category in categoryRepository.findAll()	 %}
 				<li class="nav-item">
-					<a class="nav-link" href="#">{{category.name}}</a>
+					<a class="nav-link" href="{{category.slug}}">{{category.name}}</a>
 				</li>
 			{% endfor %}
 
