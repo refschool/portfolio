@@ -17,13 +17,6 @@
 			
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('projets') }}">Projets</a>
-
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="../debuterSymfony" target="_blank">Postman</a>
-					<a class="dropdown-item" href="" target="_blank">Trocnc</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="" target="_blank">Module de Paiement Stripe</a>
-				</div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('envoyerMessageContact') }}">Contact</a>
@@ -32,12 +25,13 @@
 				<a class="nav-link" >|</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="{{ path('zoneDev') }}">Zone de développement</a>
-			</li>
-			<li class="nav-item">
 				<a class="nav-link" href="{{ path('dontpn') }}">Faites un don</a>
 			</li>
-
+			{% for category in categoryRepository.findAll()	 %}
+				<li class="nav-item">
+					<a class="nav-link" href="#">{{category.name}}</a>
+				</li>
+			{% endfor %}
 
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('produits') }}">Produits</a>

@@ -51,7 +51,6 @@ class AppFixtures extends Fixture
             }
         }
 
-
         //$manager->flush();
 
         $admin = new User;
