@@ -35,6 +35,30 @@ class CartService
         $this->session->set('cart', $cart);
     }
 
+    public function decrement(int $id)
+    {
+
+        $cart = $this->session->get('cart', []);
+
+        if (!array_key_exists($id, $cart)) {
+            return;
+        }
+
+        if ($cart[$id] === 1) {
+            $this->remove($id);
+        }
+        $cart[$id]--;
+
+        $this->session->set('cart', $cart);
+    }
+    public function remove(int $id)
+    {
+        $cart = $this->session->get('cart', []);
+        unset($cart[$id]);
+
+        $this->session->set('cart', $cart);
+    }
+
     public function getTotal(): int
     {
         $total = 0;
