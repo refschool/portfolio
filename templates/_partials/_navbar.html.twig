@@ -28,11 +28,17 @@
 				<a class="nav-link" href="{{ path('dontpn') }}">Faites un don</a>
 			</li>
 			
-			{% for category in categoryRepository.findAll()	 %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('product_category', {'slug':category.slug}) }}">{{category.name}}</a>
-				</li>
-			{% endfor %}
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Categories
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					{% for category in categoryRepository.findAll()	 %}
+						<a class="dropdown-item" href="{{ path('product_category', {'slug':category.slug}) }}">{{category.name}}</a>
+					{% endfor %}
+				</div>
+			</li>
+
 
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('produits') }}">Produits</a>
