@@ -19,33 +19,36 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Validation du formulaire : le nom est obligatoire.")
-     * @Assert\Length(min=2, minMessage="MINIMUM 2 Caractères")
+     * @Assert\NotBlank(message="Le nom est obligatoire.")
+     * @Assert\Length(min=2, minMessage="Le nom doit contenir au minimum 2 caractères.")
+     * @Assert\Regex(pattern="/^[a-z]+$/i", message="Les caractères spéciaux et les chiffres ne sont pas autorisés.");
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\NotBlank(message="Le prénom est obligatoire.")
+     * @Assert\Regex(pattern="/^[a-z]+$/i", message="Les caractères spéciaux et les chiffres ne sont pas autorisés.");
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="L'email est obligatoire")
-     * @Assert\Email(message="L'adresse email '{{ value }}' n'est pas valide")
+     * @Assert\NotBlank(message="L'email est obligatoire.")
+     * @Assert\Email(message="L'adresse email '{{ value }}' n'est pas valide.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Le téléphone est obligatoire")
+     * @Assert\NotBlank(message="Le téléphone est obligatoire.")
+     * @Assert\Regex(pattern="/^[0-9]+$/i", message="Veuillez saisir un n° de téléphone.");
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez mettre un message")
+     * @Assert\NotBlank(message="Veuillez mettre un message.")
      */
     private $message;
 

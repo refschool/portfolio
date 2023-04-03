@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<!-- mx-auto -->
+<div class="col-md-8 mt-5">
+	<h1>Inscription</h1>
+	{% for rubrique, messages in app.flashes %}
+	
+	<div class="alert alert-{{rubrique}}">
+		{% for user in messages %}
+			<p>{{user}}</p>
+		{% endfor %}
+	</div>
+	{% endfor %}
+
+	{{ form_start(formView) }}
+
+	{{ form_widget(formView) }}
+
+	<button type='submit' class="btn btn-success">Inscription</button>
+	 
+	{{ form_end(formView) }}
+</div>
+{% endblock %}

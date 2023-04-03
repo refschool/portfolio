@@ -1,11 +1,11 @@
-{% extends "base.html.twig" %}
+ 
 
 {% block body %}
 
-	<div id='cv' class="row border border-dark">
+	<div id='cv' class="pl-5 mt-5 row border border-dark">
 		<div class="col-lg-8 col-md-12">
 
-			<div class="pl-5 pt-5 row ">
+			<div class=" row ">
 				{% include "_experiences.html.twig" %}
  
  				<div class="w-100"></div>
@@ -30,8 +30,8 @@
 			<h3>Info personnel</h3>
 			<span>Email</span>
 				<a href='mailto:johntchen.mos@gmail.com'>johntchen.mos@gmail.com</a>
-			<span>CV</span>
-				<a href="{{ asset('assets/CV John Tchen.pdf') }}">CV</a>
+			<span><a href="{{ asset('assets/CV John Tchen.pdf') }}">CV</a></span>
+				 
 			<span>Téléphone</span>
 				<a href="tel:+33658081986">+33 6 58 08 19 86</a>
 				 

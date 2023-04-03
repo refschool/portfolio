@@ -16,14 +16,14 @@ class LoginType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse email',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control form-group form-control col-md-8',
                     'placeholder' => 'Adresse email'
                 ]
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control form-group form-control col-md-8',
                     'placeholder' => 'Mot de passe'
                 ]
             ]);

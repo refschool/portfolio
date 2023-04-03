@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvents;
@@ -39,6 +41,7 @@ class ContactType extends AbstractType
                 'required' => false
             ])
             ->add('brochure', FileType::class, [
+                'attr' => ['class' => 'form-group form-control col-md-12'],
                 'label' =>  'Brochure (PDF file)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -50,7 +53,7 @@ class ContactType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '1024M',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
@@ -59,7 +62,12 @@ class ContactType extends AbstractType
                     ])
 
                 ]
-            ]);
+            ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+                'locale' => 'fr',
+            ]);;
 
         // Evenement : affiche le bloc nom si l'id est null
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

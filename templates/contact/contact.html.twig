@@ -6,7 +6,6 @@
 <div class="mx-auto col-md-6 mt-5">
 	<h1>Contact</h1>
 
-
 	{% for rubrique, messages in app.flashes %}
 	
 	<div class="alert alert-{{rubrique}}">
@@ -27,7 +26,8 @@
 	{{ form_row(formView.telephone) }}
 	{{ form_row(formView.email) }}
 	{{ form_row(formView.message) }}
-
+	{{ form_row(formView.brochure) }}
+	
 	<button type="submit" class="btn btn-primary">
 		<i class="fas fa-save"></i>Envoyer
 	</button>

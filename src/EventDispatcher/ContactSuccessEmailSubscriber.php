@@ -2,7 +2,7 @@
 
 namespace App\EventDispatcher;
 
-use App\Event\MessageSuccessEvent;
+use App\Event\ContactSuccessEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-class MessageSuccessEmailSubscriber implements EventSubscriberInterface
+class ContactSuccessEmailSubscriber implements EventSubscriberInterface
 {
 
     protected $logger;
@@ -29,21 +29,21 @@ class MessageSuccessEmailSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function sendSuccessEmail(MessageSuccessEvent $messageEvent)
+    public function sendSuccessEmail(ContactSuccessEvent $messageContactEvent)
     {
         $email = new TemplatedEmail();
-        $fromEmail = $messageEvent->getMessage()->getEmail();
-        $nom = $messageEvent->getMessage()->getNom();
-        $prenom = $messageEvent->getMessage()->getPrenom();
+        $fromEmail = $messageContactEvent->getContact()->getEmail();
+        $nom = $messageContactEvent->getContact()->getNom();
+        $prenom = $messageContactEvent->getContact()->getPrenom();
         $email
             ->from(new Address($fromEmail, $nom . ' ' . $prenom))
             ->to("admin@test.com")
             ->text("Le service admin a bien reçu votre message")
             ->htmlTemplate('emails/contact_view.html.twig')
             ->context([
-                'contact' => $messageEvent->getMessage()
+                'contact' => $messageContactEvent->getContact()
             ])
-            ->subject("Reception du message");
+            ->subject("Nous avons reçu votre message.");
 
         $this->mailer->send($email);
 

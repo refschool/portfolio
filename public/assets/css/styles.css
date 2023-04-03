@@ -13,6 +13,11 @@
       margin-right: 0;
   }
 
+  #file-ip-1-preview {
+      width: 200px;
+      height: 200px;
+  }
+
   div>span {
       display: block;
   }
@@ -21,6 +26,13 @@
       margin-bottom: 1rem;
   }
 
+  #experiences {
+      border-bottom: 1px solid grey;
+      margin-right: 2rem;
+      padding: 5px 0;
+      color: #31618F;
+      font-weight: bold;
+  }
 
   .h3title {
       border-top: 1px solid grey;

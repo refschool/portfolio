@@ -94,14 +94,20 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
-    "egulias/email-validator": {
-        "version": "2.1.25"
-    },
     "fakerphp/faker": {
         "version": "v1.21.0"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
+    },
+    "google/apiclient": {
+        "version": "2.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.10",
+            "ref": "07a97ec434d43b7903c78069a04c92adb6442e52"
+        }
     },
     "google/recaptcha": {
         "version": "1.2",
@@ -277,12 +283,12 @@
         "version": "v5.1.11"
     },
     "symfony/mailer": {
-        "version": "5.1",
+        "version": "5.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "4.3",
-            "ref": "bbfc7e27257d3a3f12a6fb0a42540a42d9623a37"
+            "ref": "2bf89438209656b85b9a49238c4467bff1b1f939"
         },
         "files": [
             "./config/packages/mailer.yaml"
@@ -296,9 +302,6 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
-    },
-    "symfony/mime": {
-        "version": "v5.1.11"
     },
     "symfony/monolog-bridge": {
         "version": "v5.1.11"
@@ -325,9 +328,6 @@
         "version": "v1.25.0"
     },
     "symfony/polyfill-intl-icu": {
-        "version": "v1.25.0"
-    },
-    "symfony/polyfill-intl-idn": {
         "version": "v1.25.0"
     },
     "symfony/polyfill-intl-normalizer": {

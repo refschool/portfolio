@@ -3,40 +3,48 @@
 namespace App\Controller\Contact;
 
 use App\Entity\Contact;
-use App\Entity\User;
-use App\Event\MessageSuccessEvent;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use App\Service\FileUploader;
+use App\Event\ContactSuccessEvent;
+use App\Event\InscriptionSuccessEvent;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ContactController extends AbstractController
 {
+    protected $recaptcha3Validator;
+    protected $em;
+    protected $flashBag;
+    protected $dispatcher;
 
+    public function __construct(EventDispatcherInterface $dispatcher, FlashBagInterface $flashBag, Recaptcha3Validator $recaptcha3Validator, EntityManagerInterface $em)
+    {
+        $this->recaptcha3Validator = $recaptcha3Validator;
+        $this->em = $em;
+        $this->flashBag = $flashBag;
+        $this->dispatcher = $dispatcher;
+    }
     /**
      * @Route("/contact", name="envoyerMessageContact")
      */
     public function envoyerMessageContact(
         Request $request,
-        EntityManagerInterface $em,
-        ValidatorInterface $vi,
-        FlashBagInterface $flashBag,
-        EventDispatcherInterface $dispatcher,
-        SluggerInterface $slugger,
-        FileUploader $fileUploader
+        SluggerInterface $slugger
     ) {
-        $flashBag->add('info', 'Le formulaire est en cours de développement.');
 
         $contact = new Contact;
         //getForm + setData
@@ -46,10 +54,12 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Récupère le score
+            $score = $this->recaptcha3Validator->getLastResponse()->getScore();
 
             /** @var UploadedFile $brochureFile */
             $brochureFile = $form->get('brochure')->getData();
-
+            $contact = $form->getData();
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($brochureFile) {
@@ -57,6 +67,7 @@ class ContactController extends AbstractController
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+                $contact->setBrochureFilename($newFilename);
 
                 // Move the file to the directory where brochures are stored
                 try {
@@ -70,22 +81,19 @@ class ContactController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                $contact->setBrochureFilename($newFilename);
+
             }
 
-            $contact = $form->getData();
-
-            $em->persist($contact);
-            $em->flush();
-
+            $this->em->persist($contact);
+            $this->em->flush();
 
             // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
-            $contactEvent = new MessageSuccessEvent($contact);
+            $contactEvent = new ContactSuccessEvent($contact);
 
-            $dispatcher->dispatch($contactEvent, 'message.success');
+            $this->dispatcher->dispatch($contactEvent, 'message.success');
 
-            $flashBag->add('success', 'Votre message a été envoyé.');
-            $flashBag->add('success', 'Vous recevrez une copie de votre message.');
+            $this->flashBag->add('success', 'Votre message a été envoyé.');
+            //$flashBag->add('success', 'Vous recevrez une copie de votre message.');
         }
 
         $formView = $form->createView();
@@ -101,11 +109,14 @@ class ContactController extends AbstractController
     /**
      * @Route("/admin/editerMessageContact/{id}", name="messageContactEdit")
      */
-    public function editerMessageContact($id, ContactRepository $contactRepository, Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
-    {
+    public function editerMessageContact(
+        $id,
+        ContactRepository $contactRepository,
+        Request $request,
+        EntityManagerInterface $em
+    ) {
 
         $message = $contactRepository->find($id);
-
 
         $form = $this->createForm(ContactType::class, $message);
 
@@ -114,8 +125,6 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
-
-
             return $this->redirectToRoute('homepage');
         }
 
@@ -123,6 +132,51 @@ class ContactController extends AbstractController
 
         return $this->render('contact/edit.html.twig', [
             'contact' => $message,
+            'formView' => $formView
+        ]);
+    }
+
+    /**
+     * @Route("/inscription", name="inscription")
+     */
+    public function inscription(
+        Request $request,
+        UserPasswordHasherInterface $encoder
+    ) {
+        //$flashBag->add('info', 'Le formulaire est en cours de développement.');
+
+        $user = new User;
+        //getForm + setData
+        $form = $this->createForm(UserType::class);
+        //analyse request
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Récupère le score
+            $score = $this->recaptcha3Validator->getLastResponse()->getScore();
+
+            $user = $form->getData();
+            $password = $user->getPassword();
+
+            $hash = $encoder->hashPassword($user, $password);
+            $user->setPassword($hash);
+
+            $this->em->persist($user);
+            $this->em->flush();
+
+            // Lancer un évènement qui permettent aux autres développeurs de réagir à la soumission d'un message
+            $userEvent = new InscriptionSuccessEvent($user);
+
+            $this->dispatcher->dispatch($userEvent, 'user.success');
+
+            $this->flashBag->add('success', 'Inscription réussi.');
+            $this->flashBag->add('success', 'Vous recevrez une confirmation de votre inscription ainsi que le récap des vos accès.');
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('contact/inscription.html.twig', [
             'formView' => $formView
         ]);
     }
