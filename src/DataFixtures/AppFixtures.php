@@ -79,11 +79,14 @@ class AppFixtures extends Fixture
                 ->setCity($faker->city())
                 ->setUser($faker->randomElement($users))
                 ->setTotal(mt_rand(2000, 30000));
+
+            if ($faker->boolean(90)) {
+                $purchase->setStatus(Purchase::STATUS_PAID);
+            }
+            $manager->persist($purchase);
         }
 
-        if ($faker->boolean(90)) {
-            $purchase->setStatus(Purchase::STATUS_PAID);
-        }
+
         $manager->flush();
     }
 }
