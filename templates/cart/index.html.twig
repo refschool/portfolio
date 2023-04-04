@@ -19,7 +19,7 @@
                 {% for item in items %}
                     <tr>
                         <td>{{item.product.name}}</td>
-                        <td>{{item.product.price}}</td>
+                        <td>{{item.product.price/100}} €</td>
                         <td>
                             <a class="btn btn-sm btn-primary" href="{{ path("cart_decrement", {'id': item.product.id}) }}" >-</a>
                             <i class="fas fa-minus"></i>
@@ -27,7 +27,7 @@
                             <a class="btn btn-sm btn-primary" href="{{ path("cart_add", {'id': item.product.id}) }}?returnToCart=true" >+</a>
                             <i class="fas fa-plus"></i>
                         </td>
-                        <td>{{item.total}}</td>
+                        <td>{{item.total /100}} €</td>
                         <td>
                             <a href="{{ path('cart_delete', {'id' : item.product.id}) }}" class="btn btn-sm btn-danger">
                                 X    
@@ -39,7 +39,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3">Total:</td>
-                    <td colspan="3">{{total}}</td>
+                    <td colspan="3">{{total/100}} €</td>
                 </tr>
             </tfoot>
         </table>

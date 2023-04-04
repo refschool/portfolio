@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
@@ -35,9 +36,10 @@ class PurchaseListController extends AbstractController
         /** @var User */
         $user = $this->security->getUser();
         if (!$user) {
+            //throw new AccessDeniedException("Vous devez être connecté pour consulter vos commandes.");
             // Redirection -> RedirectResponse
             //Générer une URL en fonction du nom d'une route -> URLGeneratorInterface / RouterInterface
-            $url =  $this->router->generate('homepage');
+            $url =  $this->router->generate('security_login');
             return new RedirectResponse($url);
         }
 

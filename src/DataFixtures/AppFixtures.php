@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
         $faker->addProvider(new \Liior\Faker\Prices($faker));
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
-        /*
+
         for ($c = 0; $c < 3; $c++) {
             $category = new Category;
             $category->setName($faker->department)
@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
                 $manager->persist($product);
             }
         }
-*/
+
         $admin = new User;
         $hash = $this->encoder->hashPassword($admin, "admin");
 
