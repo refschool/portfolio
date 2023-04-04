@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\Contact;
 use App\Entity\Product;
+use App\Entity\Purchase;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -25,12 +26,11 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-
         $faker = Factory::create('fr_FR');
         $faker->addProvider(new \Liior\Faker\Prices($faker));
         $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
         $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
-
+        /*
         for ($c = 0; $c < 3; $c++) {
             $category = new Category;
             $category->setName($faker->department)
@@ -50,9 +50,7 @@ class AppFixtures extends Fixture
                 $manager->persist($product);
             }
         }
-
-        //$manager->flush();
-
+*/
         $admin = new User;
         $hash = $this->encoder->hashPassword($admin, "admin");
 
@@ -62,6 +60,7 @@ class AppFixtures extends Fixture
             ->setRoles(["ROLE_ADMIN"]);
         $manager->persist($admin);
 
+        $users = [];
         for ($u = 0; $u < 5; $u++) {
             $user = new User();
             $hash = $this->encoder->hashPassword($user, "password");
@@ -69,8 +68,22 @@ class AppFixtures extends Fixture
                 ->setFullname($faker->name())
                 ->setPassword($hash);
             $manager->persist($user);
+            $users[] = $user;
         }
 
+        for ($p = 0; $p < mt_rand(20, 40); $p++) {
+            $purchase = new Purchase;
+            $purchase->setFullName($faker->name())
+                ->setAddress($faker->address())
+                ->setPostalCode($faker->postcode())
+                ->setCity($faker->city())
+                ->setUser($faker->randomElement($users))
+                ->setTotal(mt_rand(2000, 30000));
+        }
+
+        if ($faker->boolean(90)) {
+            $purchase->setStatus(Purchase::STATUS_PAID);
+        }
         $manager->flush();
     }
 }
